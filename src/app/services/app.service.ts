@@ -1,5 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,8 @@ import { Injectable } from '@angular/core';
 export class AppService {
 
   constructor(
-    private _http:HttpClient
+    private _http:HttpClient,
+    private _err:ErrorService
   ) { }
 
   get(callback:(res:any) => void){
@@ -16,7 +18,7 @@ export class AppService {
         callback(res)
       },
       error:(err:HttpErrorResponse)=>{
-        console.log(err)
+        this._err.errorHandler(err)
       },
     })
   }
@@ -27,7 +29,7 @@ export class AppService {
         callback(res)
       },
       error: (err:HttpErrorResponse)=>{
-        console.log(err)
+        this._err.errorHandler(err)
       }
     })
   }
