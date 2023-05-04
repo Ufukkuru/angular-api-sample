@@ -1,39 +1,25 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { AppService } from './services/app.service';
 
 @Component({
   selector: 'app-root',
   template: `
-  <input [(ngModel)]="model.title">
-  <button (click)="save()">kaydet</button>
+  
   `
 })
 export class AppComponent {
-
-  model : {
-    id:number,
-    title:string,
-    completed:boolean,
-    userId:number
-  } = {
-    id:0,
-    title:"",
-    completed: false,
-    userId:1
-  }
-
   constructor(
-    private _http:HttpClient
+  private _app : AppService
   ){
-    let headers={
-      headers:{
-        "authorization": "deger"
-      }
-    }
-    this._http.get("https://jsonplaceholder.typicode.com/todos",headers).subscribe(res=>{
+    _app.get().subscribe(res=>{
       console.log(res)
     })
   }
 
-  save(){}
+  save(){
+    this._app.add({userId:1,title:"deneme",completed:false,id:0}).subscribe(res=>{
+      console.log(res)
+    })
+  }
 }
