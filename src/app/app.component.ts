@@ -10,7 +10,13 @@ export class AppComponent {
   constructor(
     private _http:HttpClient
   ){
-    this._http.get('https://jsonplaceholder.typicode.com/todos/1').subscribe({
+    let model = {
+      userId:1,
+      id:0,
+      title:"Deneme",
+      complete:false
+    }
+    this._http.post('https://jsonplaceholder.typicode.com/todos',model).subscribe({
       next: (res: any) =>{
         console.log(res)
       },
