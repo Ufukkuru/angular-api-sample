@@ -24,11 +24,16 @@ export class AppComponent {
 
   constructor(
     private _http:HttpClient
-  ){}
-
-  save(){
-    this._http.post("https://jsonplaceholder.typicode.com/todos",this.model).subscribe(res=>{
+  ){
+    let headers={
+      headers:{
+        "authorization": "deger"
+      }
+    }
+    this._http.get("https://jsonplaceholder.typicode.com/todos",headers).subscribe(res=>{
       console.log(res)
     })
   }
+
+  save(){}
 }
