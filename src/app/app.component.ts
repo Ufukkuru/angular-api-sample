@@ -1,3 +1,4 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
@@ -6,5 +7,19 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'api-sample';
+  constructor(
+    private _http:HttpClient
+  ){
+    this._http.get('https://jsonplaceholder.typicode.com/todos/1').subscribe({
+      next: (res: any) =>{
+        console.log(res)
+      },
+      error: (err:HttpErrorResponse) =>{
+        console.log(err)
+      },
+      complete : () =>{
+
+      }
+    })
+  }
 }
