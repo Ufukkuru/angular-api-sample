@@ -3,29 +3,32 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: `
+  <input [(ngModel)]="model.title">
+  <button (click)="save()">kaydet</button>
+  `
 })
 export class AppComponent {
+
+  model : {
+    id:number,
+    title:string,
+    completed:boolean,
+    userId:number
+  } = {
+    id:0,
+    title:"",
+    completed: false,
+    userId:1
+  }
+
   constructor(
     private _http:HttpClient
-  ){
-    let model = {
-      userId:1,
-      id:0,
-      title:"Deneme",
-      complete:false
-    }
-    this._http.post('https://jsonplaceholder.typicode.com/todos',model).subscribe({
-      next: (res: any) =>{
-        console.log(res)
-      },
-      error: (err:HttpErrorResponse) =>{
-        console.log(err)
-      },
-      complete : () =>{
+  ){}
 
-      }
+  save(){
+    this._http.post("https://jsonplaceholder.typicode.com/todos",this.model).subscribe(res=>{
+      console.log(res)
     })
   }
 }
